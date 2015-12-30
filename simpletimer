@@ -3,14 +3,77 @@
 #A minimal timer for the terminal in Bash
 #Author: Manuel Pichardo Marcano
 #Website: manuelpm.me
-#Dependencies: notify-send, espeak
+#Dependencies: notify-send, espeak, grep
 ##########################################
 
+#Set Script Name variable
+SCRIPT=`basename ${BASH_SOURCE[0]}`
 
-if [ $2 = 'm' ]; then 
-	 stimes=`echo $1'*60' | bc -l`
+#Initialize with default values
+OPT_l='es' #Language and voice for espeak
+OPT_m='Tiempo' #Message it will say
+OPT_n='Terminado' #Popup notification
+
+#Set fonts for Help.
+NORM=`tput sgr0`
+BOLD=`tput bold`
+REV=`tput smso`
+
+#Help function
+
+#Help function
+function HELP {
+  echo -e \\n"Help documentation for ${BOLD}${SCRIPT}.${NORM}"\\n
+  echo -e "${REV}Basic usage:${NORM} ${BOLD}$SCRIPT 1m${NORM}" #\\n
+  echo -e "m for minutes and s for seconds."
+  echo "Flags are optional. The following ones are supported."
+  echo "${REV}-l${NORM}  --Sets the value for option ${BOLD}l${NORM}. Voice for espeak. Default is ${BOLD}Spanish${NORM}."
+  echo "${REV}-m${NORM}  --Sets the value for option ${BOLD}m${NORM}. Message to say. Default is ${BOLD}Tiempo${NORM}."
+  echo "${REV}-n${NORM}  --Sets the value for option ${BOLD}n${NORM}. Notification message. Default is ${BOLD}Terminado${NORM}."
+  echo -e "${REV}-h${NORM}  --Displays this help message and exits."\\n
+  echo -e "Example: ${BOLD}$SCRIPT -l en -m \"Time finished\" -n Done 50s${NORM}"\\n
+  exit 1
+}
+
+
+#If no arguments are given, print help and exit.
+NUMARGS=$#
+if [ $NUMARGS -eq 0 ]; then
+echo -e \\n"No arguments given!"
+  HELP
+fi
+
+while getopts :l:m:n:h FLAG; do
+	case $FLAG in
+		l)  #set option "language"
+			OPT_l=$OPTARG
+		;;
+
+		m)  #set option "What to Say"
+			OPT_m=$OPTARG
+		;;
+
+		n)  #set option "Notification"
+			OPT_n=$OPTARG
+		;;
+
+		h)  #show help
+			HELP
+		;;
+	esac
+done
+
+#Variables for sleep 
+
+sleepvariable=`echo $@ | grep -o  '[0-9]\{1,2\}[ms]'` 
+timesleep=`echo $sleepvariable | grep -oh '[0-9]\{1,2\}'`
+typesleep=`echo $sleepvariable | grep -oh '[a-z]'`
+
+if [ $typesleep = 'm' ]; then 
+	 stimes=`echo $timesleep'*60' | bc -l`
 else 
-	stimes=`echo $1`
+	stimes=`echo $timesleep`
 fi
 echo 'export stimes='$stimes > ~/.timervariables
-sleep $1$2 ; espeak -v en "Time" ; notify-send -u critical Time
+sleep $sleepvariable ; echo $OPT_m | espeak -v $OPT_l ; notify-send -u critical $OPT_n
+
