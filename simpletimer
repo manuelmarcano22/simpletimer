@@ -32,6 +32,7 @@ function HELP {
   echo "${REV}-n${NORM}  --Sets the value for option ${BOLD}n${NORM}. Notification message. Default is ${BOLD}Terminado${NORM}."
   echo -e "${REV}-h${NORM}  --Displays this help message and exits."\\n
   echo -e "Example: ${BOLD}$SCRIPT -l en -m \"Time finished\" -n Done 50s${NORM}"\\n
+  echo -e "To see the progress run: ${BOLD}seetimer${NORM}"\\n
   exit 1
 }
 
