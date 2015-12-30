@@ -1,0 +1,16 @@
+#!/bin/bash
+##########################################
+#A minimal timer for the terminal in Bash
+#Author: Manuel Pichardo Marcano
+#Website: manuelpm.me
+#Dependencies: notify-send, espeak
+##########################################
+
+
+if [ $2 = 'm' ]; then 
+	 stimes=`echo $1'*60' | bc -l`
+else 
+	stimes=`echo $1`
+fi
+echo 'export stimes='$stimes > ~/.timervariables
+sleep $1$2 ; espeak -v en "Time" ; notify-send -u critical Time
