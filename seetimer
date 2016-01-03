@@ -20,8 +20,6 @@ if ps -C simpletimer > /dev/null ; then
 		printf -v spaces '%*s' $hashes ''
 		printf -v spacesleft '%*s' $(($maxbar-$hashes)) ''
 		echo -ne 'Percentage: '$percenttimer' % Time left: '`date -u -d @$leftt +%T`' ['`printf '%s' ${spaces// /#}``printf '%s' ${spacesleft// /-}`']\r'
-		echo 'export stimes='$stimes > ~/.timervariables
-		echo 'export leftt='$leftt >> ~/.timervariables
 		sleep 1
 	done
 fi
