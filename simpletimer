@@ -76,5 +76,6 @@ else
 	stimes=`echo $timesleep`
 fi
 echo 'export stimes='$stimes > ~/.timervariables
+echo 'export leftt='$stimes >> ~/.timervariables
 sleep $sleepvariable ; echo $OPT_m | espeak -v $OPT_l ; notify-send -u critical $OPT_n
 
