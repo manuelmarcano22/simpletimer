@@ -1,5 +1,6 @@
 #!/bin/bash
 
+if ps -C simpletimer > /dev/null ; then
 source ~/.timervariables
 leftt=`ps -eo '%t %c' | grep simpletimer | grep -oh '[0-9][0-9]:[0-9][0-9]' | awk -F: '{print $1*60+$2}'`
 killall simpletimer
@@ -10,3 +11,4 @@ leftt=$(($stimes-$leftt))
 echo 'export stimes='$leftt > ~/.timervariables
 echo 'export leftt='$leftt >> ~/.timervariables
 echo -e 'Paused at: '`date -u -d @$leftt +%T`
+fi
