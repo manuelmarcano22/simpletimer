@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source ~/.timervariables
+simpletimer $leftt"s" &
+seetimer
