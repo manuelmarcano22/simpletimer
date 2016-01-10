@@ -66,8 +66,9 @@ done
 
 #Variables for sleep 
 
-sleepvariable=`echo $@ | grep -o  '[0-9]\{1,2\}[ms]'` 
-timesleep=`echo $sleepvariable | grep -oh '[0-9]\{1,2\}'`
+#sleepvariable=`echo $@ | grep -o  '[0-9]\{1,2\}[ms]'` 
+sleepvariable=`echo $@ | grep -o  '[0-9]\{1,5\}[ms]'` 
+timesleep=`echo $sleepvariable | grep -oh '[0-9]\{1,5\}'`
 typesleep=`echo $sleepvariable | grep -oh '[a-z]'`
 
 if [ $typesleep = 'm' ]; then 
@@ -80,4 +81,4 @@ echo 'export leftt='$stimes >> ~/.timervariables
 sleep $sleepvariable ; echo $OPT_m | espeak -v $OPT_l ; notify-send -u critical $OPT_n | 
 echo 'export stimes='0 > ~/.timervariables |
 echo 'export leftt='0 >> ~/.timervariables
-
+#Can try with xmessage -display :0.0 "Done"
