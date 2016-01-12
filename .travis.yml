@@ -5,6 +5,8 @@ before_script:
         - chmod +x simpletimer 
         - chmod +x restarttimer
         - chmod +x pausetimer 
+        - chmod +x seetimer 
+
 
 script:
     - bash testtimer 
