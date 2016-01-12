@@ -1,5 +1,7 @@
 #! /bin/bash
 #file: testtimer
+#Simple test for the pausetime and restarttimer. Test if the runtime within one second
+# of sum of the timer and the pause. 
 
 
 setUp()
@@ -18,4 +20,4 @@ assertTrue '[ $runtime -ge $((total-1)) ] && [ $runtime -le $((total+1)) ]'
 }
 
 # load shunit2
-. /usr/bin/shunit2
+. shunit2
