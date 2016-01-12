@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/manuelmarcano22/simpletimer.svg?branch=master)](https://travis-ci.org/manuelmarcano22/simpletimer)
-
 # Simple Timer
 
 A minimal timer for the terminal in Bash and a small function to display the progress of the timer. 
