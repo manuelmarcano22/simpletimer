@@ -2,6 +2,7 @@ language: bash
 
 before_script:
         - curl -L "https://shunit2.googlecode.com/files/shunit2-2.1.6.tgz" | tar zx
+        - sudo apt-get install bc  
         - chmod +x simpletimer 
         - chmod +x restarttimer
         - chmod +x pausetimer 
