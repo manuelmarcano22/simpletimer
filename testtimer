@@ -12,8 +12,8 @@ setUp()
 testTime()
 {
 	start=`date +%s` 
-	simpletimer $timetest's' &
-	sleep $pausetime's' ; pausetimer ; sleep $pausetime's'; restarttimer 
+	. simpletimer $timetest's' &
+	sleep $pausetime's' ; . pausetimer ; sleep $pausetime's'; . restarttimer 
 	end=`date +%s`
 	runtime=$((end-start))
 assertTrue '[ $runtime -ge $((total-1)) ] && [ $runtime -le $((total+1)) ]'
