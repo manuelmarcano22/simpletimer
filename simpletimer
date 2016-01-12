@@ -13,6 +13,7 @@ SCRIPT=`basename ${BASH_SOURCE[0]}`
 OPT_l='es' #Language and voice for espeak
 OPT_m='Tiempo' #Message it will say
 OPT_n='Terminado' #Popup notification
+OPT_t=0 #For test with no espeak or notification
 
 #Set fonts for Help.
 NORM=`tput sgr0`
@@ -44,7 +45,7 @@ echo -e \\n"No arguments given!"
   HELP
 fi
 
-while getopts :l:m:n:h FLAG; do
+while getopts :l:m:n:h:t FLAG; do
 	case $FLAG in
 		l)  #set option "language"
 			OPT_l=$OPTARG
@@ -56,6 +57,10 @@ while getopts :l:m:n:h FLAG; do
 
 		n)  #set option "Notification"
 			OPT_n=$OPTARG
+		;;
+		
+		t)  #test
+			OPT_t=1
 		;;
 
 		h)  #show help
@@ -78,7 +83,15 @@ else
 fi
 echo 'export stimes='$stimes > ~/.timervariables
 echo 'export leftt='$stimes >> ~/.timervariables
-sleep $sleepvariable ; echo $OPT_m | espeak -v $OPT_l ; notify-send -u critical $OPT_n | 
-echo 'export stimes='0 > ~/.timervariables |
-echo 'export leftt='0 >> ~/.timervariables
+
+if [ $OPT_t = '1' ]; then 
+	sleep $sleepvariable |
+	echo 'export stimes='0 > ~/.timervariables |
+	echo 'export leftt='0 >> ~/.timervariables
+else 
+	sleep $sleepvariable ; echo $OPT_m | espeak -v $OPT_l ; notify-send -u critical $OPT_n | 
+	echo 'export stimes='0 > ~/.timervariables |
+	echo 'export leftt='0 >> ~/.timervariables
+fi
+
 #Can try with xmessage -display :0.0 "Done"
