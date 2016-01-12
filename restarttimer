@@ -3,7 +3,7 @@
 #Initialize with default values
 OPT_t=0 #For test with no espeak or notification
 
-while getopts :t FLAG; do
+while getopts t FLAG; do
 	case $FLAG in
 		t)  #test
 			OPT_t=1
@@ -18,8 +18,7 @@ source ~/.timervariables
 if ! ps -C simpletimer > /dev/null; then 
 	if [ -n $leftt ] && [ $leftt -ne '0' ]; then
 if [ $OPT_t = '1' ]; then 
-	simpletimer -t $leftt"s" &
-	seetimer
+	simpletimer -t $leftt"s" & 
 else
 	simpletimer $leftt"s" &
 	seetimer

@@ -6,17 +6,20 @@
 
 setUp()
 {
+	PATH=$PWD:$PATH
 	timetest=15 ; pausetime=3; total=$((timetest+pausetime))
 }
 
 testTime()
 {
 	start=`date +%s` 
-	simpletimer hjk -t $timetest's' &
+	./simpletimer -t $timetest's' &
 	sleep $pausetime's' 
-	pausetimer 
+	./pausetimer 
 	sleep $pausetime's'
-	restarttimer -t ; end=`date +%s`
+	./restarttimer -t  
+	./seetimer
+	end=`date +%s`
 	runtime=$((end-start))
 assertTrue '[ $runtime -ge $((total-1)) ] && [ $runtime -le $((total+1)) ]'
 }
