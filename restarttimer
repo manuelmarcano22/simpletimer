@@ -7,6 +7,7 @@ while getopts :t FLAG; do
 	case $FLAG in
 		t)  #test
 			OPT_t=1
+		;;
 	esac
 done
 
@@ -18,6 +19,7 @@ if ! ps -C simpletimer > /dev/null; then
 	if [ -n $leftt ] && [ $leftt -ne '0' ]; then
 if [ $OPT_t = '1' ]; then 
 	simpletimer -t $leftt"s" &
+	seetimer
 else
 	simpletimer $leftt"s" &
 	seetimer
