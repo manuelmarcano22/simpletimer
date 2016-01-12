@@ -85,7 +85,7 @@ echo 'export stimes='$stimes > ~/.timervariables
 echo 'export leftt='$stimes >> ~/.timervariables
 
 if [ $OPT_t = '1' ]; then 
-	sleep $sleepvariable |
+	sleep $sleepvariable ;
 	echo 'export stimes='0 > ~/.timervariables |
 	echo 'export leftt='0 >> ~/.timervariables
 else 

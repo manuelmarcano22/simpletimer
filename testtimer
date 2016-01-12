@@ -6,18 +6,22 @@
 
 setUp()
 {
-	timetest=7 ; pausetime=5; total=$((timetest+pausetime))
+	timetest=10 ; pausetime=2; total=$((timetest+pausetime))
 }
 
 testTime()
 {
 	start=`date +%s` 
 	. simpletimer -t $timetest's' &
-	sleep $pausetime's' ; . pausetimer ; sleep $pausetime's'; . restarttimer -t 
+	sleep $pausetime's'
+	. pausetimer
+	sleep $pausetime's' ; 
+	. restarttimer -t 
 	end=`date +%s`
 	runtime=$((end-start))
+	echo $runtime
 assertTrue '[ $runtime -ge $((total-1)) ] && [ $runtime -le $((total+1)) ]'
 }
 
 # load shunit2
-. shunit2-2.1.3/src/shell/shunit2
+. shunit2-2.1.6/src/shunit2
